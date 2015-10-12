@@ -48,6 +48,12 @@ RUN mkdir /home/bcbio/tools
 ADD https://raw.github.com/chapmanb/bcbio-nextgen/master/scripts/bcbio_nextgen_install.py  /home/bcbio/bcbio_nextgen_install.py
 RUN python /home/bcbio/bcbio_nextgen_install.py /home/bcbio  --tooldir=/home/bcbio/tools --nodata
 
-VOLUME ["/home/bcbio"]
+ENV BCBIO_GENOMES=$BCBIO_HOME/genomes \
+		BCBIO_DATA=$BCBIO_HOME/data \
+		BCBIO_CONFIG=$BCBIO_HOME/config
+
+RUN export $BCBIO_HOME/tools/bin/:$PATH
+
+VOLUME [$BCBIO_GENOMES, $BCBIO_DATA, $BCBIO_CONFIG]
 
 #CMD ["/usr/bin/startup"]

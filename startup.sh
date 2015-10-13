@@ -16,8 +16,26 @@ else
   chown -R $BCBIO_UID $BCBIO_GENOMES
 fi
 
-#chown -R $BCBIO_UID $BCBIO_GENOMES
-chown -R $BCBIO_UID $BCBIO_DATA
+if [ -e $BCBIO_DATA ];
+  then
+    echo $BCBIO_DATA exists
+    chown -R $BCBIO_UID $BCBIO_DATA
+else
+  mkdir -p $BCBIO_DATA
+  chown -R $BCBIO_UID $BCBIO_DATA
+fi
+
+if [ -e $BCBIO_CONFIG ];
+  then
+    echo $BCBIO_CONFIG exists
+    chown -R $BCBIO_UID $BCBIO_CONFIG
+else
+  mkdir -p $BCBIO_CONFIG
+  chown -R $BCBIO_UID $BCBIO_CONFIG
+fi
+
+# chown -R $BCBIO_UID $BCBIO_GENOMES
+# chown -R $BCBIO_UID $BCBIO_DATA
 
 for arg in "$*"
 do

@@ -2,7 +2,7 @@
 
 echo $BCBIO_UID $BCBIO_HOME
 
-if [-e $BCBIO_GENOMES]:
+if [ -e $BCBIO_GENOMES ]:
   then
     echo $BCBIO_GENOMES exists
     chown -R $BCBIO_UID $BCBIO_GENOMES

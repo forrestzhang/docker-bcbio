@@ -1,6 +1,11 @@
 #!/bin/bash
 
-echo $BCBIO_UID $BCBIO_HOME
+echo $BCBIO_UID $BCBIO_HOME $BCBIO_USER
+
+if ! id -u $BCBIO_USER > /dev/null 2>&1; then
+  echo "use local user: " $BCBIO_USER
+  adduser -u  $BCBIO_UID $BCBIO_USER
+if
 
 if [ -e $BCBIO_GENOMES ];
   then

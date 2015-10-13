@@ -1,5 +1,14 @@
 #!/bin/bash
+
+echo $BCBIO_UID $BCBIO_HOME
+
 chown -R $BCBIO_UID $BCBIO_HOME
+
+for arg in "$*"
+do
+  	exec  $*
+done
+
 # if [-e /mnt/transfer]
 #     then
 #         echo "/mnt/transfer exists."

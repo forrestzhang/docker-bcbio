@@ -39,9 +39,6 @@ RUN groupadd -r $BCBIO_USER -g $BCBIO_GID
 RUN useradd -u $BCBIO_UID -r -g $BCBIO_USER -d $BCBIO_HOME -c "Bcbio user" $BCBIO_USER
 #    gpasswd -a $BCBIO_USER docker
 
-ADD ./startup.sh /usr/bin/startup
-RUN chmod +x /usr/bin/startup
-
 #RUN mkdir -p /mnt/transfer
 WORKDIR /home/bcbio
 RUN mkdir /home/bcbio/tools
@@ -56,4 +53,8 @@ ENV PATH=$BCBIO_HOME/tools/bin/:$PATH
 
 VOLUME [$BCBIO_GENOMES, $BCBIO_DATA, $BCBIO_CONFIG]
 
-ENTRYPOINT ['/usr/bin/startup']
+
+ADD ./startup.sh /usr/bin/startup
+RUN chmod +x /usr/bin/startup
+
+ENTRYPOINT ["/usr/bin/startup"]

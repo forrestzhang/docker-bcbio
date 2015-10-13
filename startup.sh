@@ -35,6 +35,7 @@ if [ -e $BCBIO_CONFIG ];
     chown -R $BCBIO_UID $BCBIO_CONFIG
 else
   mkdir -p $BCBIO_CONFIG
+  cp $BCBIO_CONFIG_BK/* $BCBIO_CONFIG/
   chown -R $BCBIO_UID $BCBIO_CONFIG
 fi
 
@@ -43,7 +44,8 @@ if [ -e $BCBIO_GALAXY ];
     echo ${GREEN}$BCBIO_GALAXY${NC} exists
     chown -R $BCBIO_UID $BCBIO_GALAXY
 else
-  mkdir -p $BCBIO_CONFIG
+  mkdir -p $BCBIO_GALAXY
+  cp $BCBIO_GALAXY_BK/* $BCBIO_GALAXY/
   chown -R $BCBIO_UID $BCBIO_GALAXY
 fi
 # chown -R $BCBIO_UID $BCBIO_GENOMES

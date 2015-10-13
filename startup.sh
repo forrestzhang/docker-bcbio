@@ -2,7 +2,17 @@
 
 echo $BCBIO_UID $BCBIO_HOME
 
-chown -R $BCBIO_UID $BCBIO_HOME
+if [-e $BCBIO_GENOMES]:
+  then
+    echo $BCBIO_GENOMES exists
+    chown -R $BCBIO_UID $BCBIO_GENOMES
+else
+  mkdir -p $BCBIO_GENOMES
+  chown -R $BCBIO_UID $BCBIO_GENOMES
+fi
+
+#chown -R $BCBIO_UID $BCBIO_GENOMES
+chown -R $BCBIO_UID $BCBIO_DATA
 
 for arg in "$*"
 do

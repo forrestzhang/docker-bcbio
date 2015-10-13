@@ -38,6 +38,14 @@ else
   chown -R $BCBIO_UID $BCBIO_CONFIG
 fi
 
+if [ -e $BCBIO_GALAXY ];
+  then
+    echo ${GREEN}$BCBIO_GALAXY${NC} exists
+    chown -R $BCBIO_UID $BCBIO_GALAXY
+else
+  mkdir -p $BCBIO_CONFIG
+  chown -R $BCBIO_UID $BCBIO_GALAXY
+fi
 # chown -R $BCBIO_UID $BCBIO_GENOMES
 # chown -R $BCBIO_UID $BCBIO_DATA
 

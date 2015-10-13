@@ -47,7 +47,7 @@ RUN python /home/bcbio/bcbio_nextgen_install.py /home/bcbio  --tooldir=/home/bcb
 
 ENV BCBIO_GENOMES=$BCBIO_HOME/genomes \
 		BCBIO_DATA=$BCBIO_HOME/data \
-		BCBIO_CONFIG=$BCBIO_HOME/config
+		BCBIO_CONFIG=$BCBIO_HOME/config \
 		BCBIO_GALAXY=$BCBIO_HOME/galaxy
 
 ENV PATH=$BCBIO_HOME/tools/bin/:$PATH

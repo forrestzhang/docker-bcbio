@@ -56,4 +56,4 @@ ENV PATH=$BCBIO_HOME/tools/bin/:$PATH
 
 VOLUME [$BCBIO_GENOMES, $BCBIO_DATA, $BCBIO_CONFIG]
 
-#CMD ["/usr/bin/startup"]
+ENTRYPOINT ['/usr/bin/startup']

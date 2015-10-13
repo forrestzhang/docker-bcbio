@@ -2,14 +2,18 @@
 
 echo $BCBIO_UID $BCBIO_HOME $BCBIO_USER
 
+BLUE='\033[0;34m'
+GREEN='\033[0;32m'
+NC='\033[0m'
+
 if ! id -u $BCBIO_USER > /dev/null 2>&1; then
-  echo "use local user: " $BCBIO_USER
+  echo "use local user: " ${BLUE}$BCBIO_USER${NC}
   adduser -u  $BCBIO_UID $BCBIO_USER
 fi
 
 if [ -e $BCBIO_GENOMES ];
   then
-    echo $BCBIO_GENOMES exists
+    echo ${GREEN}$BCBIO_GENOMES${NC} exists
     chown -R $BCBIO_UID $BCBIO_GENOMES
 else
   mkdir -p $BCBIO_GENOMES
@@ -18,7 +22,7 @@ fi
 
 if [ -e $BCBIO_DATA ];
   then
-    echo $BCBIO_DATA exists
+    echo ${GREEN}$BCBIO_DATA${NC} exists
     chown -R $BCBIO_UID $BCBIO_DATA
 else
   mkdir -p $BCBIO_DATA
@@ -27,7 +31,7 @@ fi
 
 if [ -e $BCBIO_CONFIG ];
   then
-    echo $BCBIO_CONFIG exists
+    echo ${GREEN}$BCBIO_CONFIG${NC} exists
     chown -R $BCBIO_UID $BCBIO_CONFIG
 else
   mkdir -p $BCBIO_CONFIG

@@ -30,10 +30,10 @@ wget ftp://ftp.plantbiology.msu.edu/pub/data/Eukaryotic_Projects/o_sativa/annota
 
 Build bwotie2 star seq index
 ```bash
-docker run   -e BCBIO_USER=$USER -e BCBIO_UID=$UID -v /home/forrest/Docker/bcbiodata/genomes:/home/bcbio/genomes -v /home/forrest/Docker/bcbiodata/data:/home/bcbio/data -v /home/forrest/Docker/bcbiodata/config:/home/bcbio/config  -v /home/forrest/Docker/bcbiodata/galaxy:/home/bcbio/galaxy bcbio-test:t1 bcbio_setup_genome.py -f /home/bcbio/data/all.con -g /home/bcbio/data/all.gff3 -i bowtie2 star seq -n Rice -b TIGR7
+docker run   -e BCBIO_USER=$USER -e BCBIO_UID=$UID -v /home/forrest/Docker/bcbiodata/genomes:/home/bcbio/genomes -v /home/forrest/Docker/bcbiodata/data:/home/bcbio/data -v /home/forrest/Docker/bcbiodata/config:/home/bcbio/config  -v /home/forrest/Docker/bcbiodata/galaxy:/home/bcbio/galaxy bcbio-test:t1 bcbio_setup_genome.py -f /home/bcbio/data/all.con -g /home/bcbio/data/all.gff3 --gff3 -i bowtie2 seq -n Rice -b TIGR7
 ```
 
--- Download ChIP-seq reads
+Download ChIP-seq reads
 ```
 mkdir /home/forrest/Docker/bcbiodata/data/cenH3/input
 cd /home/forrest/Docker/bcbiodata/data/cenH3/input
@@ -42,7 +42,21 @@ wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR975/SRR975442/SRR975442_2.fastq.gz
 ```
 
 Create YAML file
-
+```
+fc_data: '101215'
+fc_name: 'cenH3'
+upload:
+  dir: ../final
+details:
+  - analysis: chip-seq
+    genome_build: TIGR7
+    files: [/home/bcbio/data/cenH3/input/SRR975442_1.fastq.gz, /home/bcbio/data/cenH3/input/SRR975442_2.fastq.gz]
+    description: 'Rice cenH3 ChIP-seq'
+    algorithm:
+      aligner: bowtie2
+      trim_reads: read_through
+      adapters: [truseq]
+```
 
 <!-- Download ChIP-seq reads
 ```

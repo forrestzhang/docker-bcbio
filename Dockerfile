@@ -42,8 +42,10 @@ RUN useradd -u $BCBIO_UID -r -g $BCBIO_USER -d $BCBIO_HOME -c "Bcbio user" $BCBI
 #RUN mkdir -p /mnt/transfer
 WORKDIR /home/bcbio
 RUN mkdir /home/bcbio/tools
-ADD https://raw.github.com/chapmanb/bcbio-nextgen/master/scripts/bcbio_nextgen_install.py  /home/bcbio/bcbio_nextgen_install.py
-RUN python /home/bcbio/bcbio_nextgen_install.py /home/bcbio  --tooldir=/home/bcbio/tools --nodata
+ADD https://raw.github.com/chapmanb/bcbio-nextgen/master/scripts/bcbio_nextgen_install.py  \
+    /home/bcbio/bcbio_nextgen_install.py
+RUN python /home/bcbio/bcbio_nextgen_install.py $BCBIO_HOME  --tooldir=$BCBIO_HOME/tools \
+    --genomes phix  --aligners bwa --aligners bowtie2 --aligners bowtie
 
 ENV BCBIO_GENOMES=$BCBIO_HOME/genomes \
 		BCBIO_DATA=$BCBIO_HOME/data \

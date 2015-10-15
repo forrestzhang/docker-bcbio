@@ -61,7 +61,7 @@ RUN mkdir ${BCBIO_CONFIG_BK} && cp -rf ${BCBIO_CONFIG}/*  ${BCBIO_CONFIG_BK}/
 
 #RUN mkdir $BCBIO_GALAXY
 
-VOLUME ["${BCBIO_GENOMES}", "${BCBIO_DATA}", "${BCBIO_CONFIG}", "${BCBIO_GALAXY}"]
+#VOLUME ["${BCBIO_GENOMES}", "${BCBIO_DATA}", "${BCBIO_CONFIG}", "${BCBIO_GALAXY}"]
 
 
 ADD ./startup.sh /usr/bin/startup

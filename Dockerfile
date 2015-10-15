@@ -35,29 +35,34 @@ ENV BCBIO_USER=bcbio \
     BCBIO_GID=1555 \
     BCBIO_HOME=/home/bcbio
 
+ENV BCBIO_GENOMES=$BCBIO_HOME/genomes \
+				BCBIO_DATA=$BCBIO_HOME/data \
+				BCBIO_CONFIG=$BCBIO_HOME/config \
+				BCBIO_GALAXY=$BCBIO_HOME/galaxy
+
 RUN groupadd -r $BCBIO_USER -g $BCBIO_GID
 RUN useradd -u $BCBIO_UID -r -g $BCBIO_USER -d $BCBIO_HOME -c "Bcbio user" $BCBIO_USER
 #    gpasswd -a $BCBIO_USER docker
 
 #RUN mkdir -p /mnt/transfer
-WORKDIR /home/bcbio
-RUN mkdir /home/bcbio/tools
+WORKDIR $BCBIO_HOME
+RUN mkdir $BCBIO_HOME/tools
+
+VOLUME ["${BCBIO_GENOMES}", "${BCBIO_DATA}", "${BCBIO_CONFIG}", "${BCBIO_GALAXY}"]
+
 ADD https://raw.github.com/chapmanb/bcbio-nextgen/master/scripts/bcbio_nextgen_install.py  \
     /home/bcbio/bcbio_nextgen_install.py
 RUN python /home/bcbio/bcbio_nextgen_install.py $BCBIO_HOME  --tooldir=$BCBIO_HOME/tools \
     --genomes phix  --aligners bwa --aligners bowtie2 --aligners bowtie
 
-ENV BCBIO_GENOMES=$BCBIO_HOME/genomes \
-		BCBIO_DATA=$BCBIO_HOME/data \
-		BCBIO_CONFIG=$BCBIO_HOME/config \
-		BCBIO_GALAXY=$BCBIO_HOME/galaxy \
-		BCBIO_GALAXY_BK=$BCBIO_HOME/galaxy_backup \
-		BCBIO_CONFIG_BK=$BCBIO_HOME/config_backup
+
+		# BCBIO_GALAXY_BK=$BCBIO_HOME/galaxy_backup \
+		# BCBIO_CONFIG_BK=$BCBIO_HOME/config_backup
 
 ENV PATH=$BCBIO_HOME/tools/bin/:$PATH
 
-RUN mkdir ${BCBIO_GALAXY_BK} && cp -rf ${BCBIO_GALAXY}/*  ${BCBIO_GALAXY_BK}/
-RUN mkdir ${BCBIO_CONFIG_BK} && cp -rf ${BCBIO_CONFIG}/*  ${BCBIO_CONFIG_BK}/
+# RUN mkdir ${BCBIO_GALAXY_BK} && cp -rf ${BCBIO_GALAXY}/*  ${BCBIO_GALAXY_BK}/
+# RUN mkdir ${BCBIO_CONFIG_BK} && cp -rf ${BCBIO_CONFIG}/*  ${BCBIO_CONFIG_BK}/
 
 #RUN mkdir $BCBIO_GALAXY
 

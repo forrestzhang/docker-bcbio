@@ -42,6 +42,11 @@ fi
 if [ -e $BCBIO_GALAXY ];
   then
     echo ${GREEN}$BCBIO_GALAXY${NC} exists
+    if [ -e $BCBIO_GALAXY/bcbio_system.yaml ]; then
+      echo $BCBIO_GALAXY/bcbio_system.yaml exists
+    else
+      cp $BCBIO_GALAXY_BK/bcbio_system.yaml $BCBIO_GALAXY/
+    fi
     chown -R $BCBIO_UID $BCBIO_GALAXY
 else
   mkdir -p $BCBIO_GALAXY
